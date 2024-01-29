@@ -9,5 +9,12 @@
   },
   "license": "ISC",
   "author": "Tyler Fibonacci <gepheum@gmail.com>",
-  "scripts": {}
+  "scripts": {
+    "format": "prettier --write \"**/*.ts\"",
+    "format:check": "prettier --check \"**/*.ts\""
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "prettier": "^3.2.4"
+  }
 }
