@@ -10,6 +10,8 @@
   "license": "ISC",
   "author": "Tyler Fibonacci <gepheum@gmail.com>",
   "scripts": {
+    "build": "npm run build:simple",
+    "build:simple": "npm --prefix simple run build",
     "format": "prettier --write \"**/*.ts\"",
     "format:check": "prettier --check \"**/*.ts\""
   },
