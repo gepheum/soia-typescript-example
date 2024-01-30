@@ -1,1 +1,1 @@
-# soia-typescript-gen
+# soia-typescript-examples
