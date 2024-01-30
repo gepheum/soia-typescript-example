@@ -1,3 +1,5 @@
 generators:
   - mod: soia-typescript-gen
-    config: ~
+    config:
+      # Possible values: "" (CommonJS), ".js" (ES Modules), ".ts" (Deno)
+      importPathExtension: ""
