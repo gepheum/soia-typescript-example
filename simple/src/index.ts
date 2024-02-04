@@ -1,4 +1,4 @@
-import { TARZAN, User } from "../soiagen/src/user.soia";
+import { TARZAN, User } from "../soiagen/user.soia";
 
 const tarzan: User = TARZAN;
 console.log(tarzan.toString());
