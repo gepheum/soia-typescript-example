@@ -2,15 +2,18 @@
   "name": "simple",
   "version": "1.0.0",
   "description": "",
+  "license": "ISC",
+  "author": "",
   "main": "index.js",
   "scripts": {
     "build": "soiac && tsc"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "soia": "^1.0.22"
+  },
   "devDependencies": {
     "@types/node": "^20.11.10",
-    "soia-typescript-gen": "^1.0.3",
+    "soia-typescript-gen": "^1.0.7",
     "soiac": "^1.0.13",
     "typescript": "^5.3.3"
   }
