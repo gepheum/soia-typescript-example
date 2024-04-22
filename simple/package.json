@@ -9,12 +9,12 @@
     "build": "soiac && tsc"
   },
   "dependencies": {
-    "soia": "^1.0.34"
+    "soia": "^1.0.37"
   },
   "devDependencies": {
     "@types/node": "^20.11.10",
     "soia-typescript-gen": "^1.0.10",
-    "soiac": "^1.0.16",
+    "soiac": "^1.0.17",
     "typescript": "^5.3.3"
   }
 }
