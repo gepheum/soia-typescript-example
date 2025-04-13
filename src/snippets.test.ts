@@ -37,6 +37,9 @@ describe("soia unit test example", () => {
       ],
       subscriptionStatus: {
         kind: "trial",
+        value: {
+          startTime: Timestamp.fromUnixMillis(1234),
+        },
       },
       // `userId` is not specified so it can be anything
     });
