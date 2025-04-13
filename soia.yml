@@ -1,4 +1,4 @@
-srcDir: ./src
+srcDir: ./soia_src
 
 generators:
   - mod: soia-typescript-gen

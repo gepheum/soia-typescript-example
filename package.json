@@ -5,18 +5,30 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gepheum/soia-typescript-examples.git"
+    "url": "git+https://github.com/gepheum/soia-typescript-example.git"
   },
   "license": "ISC",
   "author": "Tyler Fibonacci <gepheum@gmail.com>",
   "scripts": {
-    "build": "npm run build:simple",
-    "build:simple": "npm --prefix simple i && npm --prefix simple run build",
+    "build": "soiac && tsc",
+    "bundle": "browserify dist/src/client.js -o static/bundle.js",
+    "server": "npm run build && npm run bundle && node dist/src/server.js",
+    "snippets": "npm run build && node dist/src/snippets.js",
     "format": "prettier --write \"**/*.ts\"",
     "format:check": "prettier --check \"**/*.ts\""
   },
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "browserify": "^17.0.1",
+    "express": "^5.1.0",
+    "soia": "^1.1.1"
+  },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "prettier": "^3.2.4"
+    "@types/node": "^20.11.10",
+    "prettier": "^3.2.4",
+    "soia-typescript-gen": "^1.0.18",
+    "soiac": "^1.0.17",
+    "typescript": "^5.3.3"
   }
 }
