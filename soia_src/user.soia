@@ -53,3 +53,4 @@ struct UserHistory {
 struct UserRegistry {
   users: [User|user_id];
 }
+
