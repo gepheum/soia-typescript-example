@@ -50,4 +50,3 @@ async function callService(): Promise<void> {
 }
 
 callService();
-
