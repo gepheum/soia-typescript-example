@@ -6,9 +6,9 @@ Example showing how to use soia's [TypeScript code generator](https://github.com
 
 ```shell
 # Download this repository
-git clone https://github.com/gepheum/soia-cc-example.git
+git clone https://github.com/gepheum/soia-typescript-example.git
 
-cd soia-cc-example
+cd soia-typescript-example
 
 # Install all dependencies, which include the soia compiler and the soia
 # typescript code generator
