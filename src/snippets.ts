@@ -247,3 +247,4 @@ console.log(fieldNames);
 const typeDescriptor = parseTypeDescriptor(
   User.SERIALIZER.typeDescriptor.asJson(),
 );
+
