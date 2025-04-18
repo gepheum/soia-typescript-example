@@ -61,7 +61,7 @@ jolyHistoryMut.user = jolyMut;
 // ^ The right-hand side of the assignment can be either frozen or mutable.
 
 // jolyHistoryMut.user.quote = "I am Joly.";
-// ^ Does not compile: quote is readonly because jolyHistoryMut.user is possibly
+// ^ Does not compile: quote is readonly because jolyHistoryMut.user may be
 // frozen
 
 // The mutableUser() getter first checks if 'user' is already a mutable struct,
