@@ -8,10 +8,10 @@ import { Timestamp, parseTypeDescriptor } from "soia";
 
 // FROZEN STRUCT CLASSES
 
-// For every struct S in the .soia file, soia generates a frozen/immutable class
-// 'S' and a mutable class 'S.Mutable'.
+// For every struct S in the .soia file, soia generates a frozen/deeply
+// immutable class 'S' and a mutable class 'S.Mutable'.
 
-// Consruct a frozen/immutable User with User.create({...})
+// Consruct a frozen/deeply immutable User with User.create({...})
 const john = User.create({
   userId: 42,
   name: "John Doe",
