@@ -1,9 +1,12 @@
-// Sends RPCs to a soia service from the browser.
+// Sends RPCs to a soia service from the browser or from Node.
 //
-// Run:
+// To run from the browser, run:
 //   npm run server
 // then visit:
 //   http://localhost:8787/
+//
+// To run from Node, run:
+//    npm run client-on-node
 import {
   AddUser,
   AddUserRequest,

@@ -13,6 +13,7 @@
     "build": "soiac && tsc",
     "bundle": "browserify dist/src/client.js -o static/bundle.js",
     "server": "npm run build && npm run bundle && node dist/src/server.js",
+    "client-on-node": "npm run build && node dist/src/client.js",
     "snippets": "npm run build && node dist/src/snippets.js",
     "test": "mocha",
     "format": "prettier --write \"**/*.ts\"",
@@ -22,7 +23,7 @@
     "@types/express": "^5.0.1",
     "browserify": "^17.0.1",
     "express": "^5.1.0",
-    "soia": "^1.1.1"
+    "soia": "^1.1.6"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

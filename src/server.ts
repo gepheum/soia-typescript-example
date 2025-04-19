@@ -15,7 +15,7 @@ import {
 import { User } from "../soiagen/user";
 import express, { Request, Response } from "express";
 import path from "path";
-import { ServiceImpl, installServiceOnExpressApp } from "soia";
+import { Service, installServiceOnExpressApp } from "soia";
 
 const app = express();
 const port = 8787;
@@ -27,8 +27,22 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 class MyService {
-  async addUser(req: AddUserRequest): Promise<AddUserResponse> {
+  async addUser(
+    req: AddUserRequest,
+    // Add these parameters if you need to access request/response headers
+    reqMeta: Request,
+    resMeta: Response,
+  ): Promise<AddUserResponse> {
+    const userId = req.user.userId;
+    if (userId === 0) {
+      throw new Error("User ID cannot be 0");
+    }
     this.users[req.user.userId] = req.user;
+    // Set a custom response header based on a request header.
+    resMeta.set(
+      "X-Bar",
+      (reqMeta.get("X-Foo") || "").toLocaleUpperCase("en-US"),
+    );
     return AddUserResponse.create({});
   }
 
@@ -49,9 +63,9 @@ const myService = new MyService();
 installServiceOnExpressApp(
   app,
   "/myapi",
-  new ServiceImpl()
-    .addMethod(AddUser, async (req) => myService.addUser(req))
-    .addMethod(GetUser, async (req) => myService.getUser(req)),
+  new Service()
+    .addMethod(AddUser, MyService.prototype.addUser.bind(myService))
+    .addMethod(GetUser, MyService.prototype.getUser.bind(myService)),
   express.text,
 );
 
