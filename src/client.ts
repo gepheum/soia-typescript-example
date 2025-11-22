@@ -1,12 +1,13 @@
-// Sends RPCs to a soia service from the browser or from Node.
+// Sends RPCs to a soia service from the browser or Node.js.
 //
 // To run from the browser, run:
 //   npm run server
 // then visit:
 //   http://localhost:8787/
 //
-// To run from Node, run:
+// To run from Node.js, run:
 //    npm run client-on-node
+import { ServiceClient } from "soia";
 import {
   AddUser,
   AddUserRequest,
@@ -14,17 +15,16 @@ import {
   GetUserRequest,
 } from "../soiagen/service";
 import { TARZAN, User } from "../soiagen/user";
-import { ServiceClient } from "soia";
 
 const serviceClient = new ServiceClient("http://localhost:8787/myapi");
 
 async function callService(): Promise<void> {
-  console.log("About to add 2 users: John Doe and Tarzan");
+  console.log("Adding 2 users: John Doe and Tarzan");
 
   await serviceClient.invokeRemote(
     AddUser,
     AddUserRequest.create({
-      user: User.create({
+      user: User.create<"partial">({
         userId: 42,
         name: "John Doe",
       }),
@@ -46,9 +46,10 @@ async function callService(): Promise<void> {
       userId: 123,
     }),
     "GET",
-    // ^ note that POST would work too
+    // ^ note: POST would work too, but GET is more appropriate here
   );
 
+  // Log the retrieved user (Tarzan)
   console.log(`Found user: ${foundUser.user}`);
 }
 

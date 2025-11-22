@@ -1,9 +1,12 @@
-// Starts a soia service on http://localhost:8787/?myapi
+// Starts a soia service at http://localhost:8787/?myapi
 //
 // Run with:
 //   npm run server
 //
 // Visit http://localhost:8787/ in your browser to send RPCs to the service.
+import express, { Request, Response } from "express";
+import path from "path";
+import { Service, installServiceOnExpressApp } from "soia";
 import {
   AddUser,
   AddUserRequest,
@@ -13,9 +16,6 @@ import {
   GetUserResponse,
 } from "../soiagen/service";
 import { User } from "../soiagen/user";
-import express, { Request, Response } from "express";
-import path from "path";
-import { Service, installServiceOnExpressApp } from "soia";
 
 const app = express();
 const port = 8787;
@@ -29,7 +29,8 @@ app.get("/", (req: Request, res: Response) => {
 class MyService {
   async addUser(
     req: AddUserRequest,
-    // Add these parameters if you need to access request/response headers
+    // Add these parameters if you need to access the Express request/response
+    // objects (e.g., for headers, cookies, etc.)
     reqMeta: Request,
     resMeta: Response,
   ): Promise<AddUserResponse> {

@@ -1,9 +1,9 @@
 // Unit test example using mocha and buckwheat.
 // More info about buckwheat: https://github.com/gepheum/buckwheat
-import { User } from "../soiagen/user";
 import { expect, near } from "buckwheat";
 import { describe, it } from "mocha";
 import { Timestamp } from "soia";
+import { User } from "../soiagen/user";
 
 describe("soia unit test example", () => {
   const tarzan: User = User.create({
