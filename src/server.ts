@@ -68,6 +68,7 @@ installServiceOnExpressApp(
     .addMethod(AddUser, MyService.prototype.addUser.bind(myService))
     .addMethod(GetUser, MyService.prototype.getUser.bind(myService)),
   express.text,
+  express.json,
 );
 
 app.listen(port, () => {
