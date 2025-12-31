@@ -5,7 +5,13 @@
 
 import assert from "assert";
 import { parseTypeDescriptorFromJson, Timestamp } from "skir-client";
-import { SubscriptionStatus, TARZAN, User, UserHistory, UserRegistry } from "../skirout/user";
+import {
+  SubscriptionStatus,
+  TARZAN,
+  User,
+  UserHistory,
+  UserRegistry,
+} from "../skirout/user";
 
 // FROZEN STRUCT CLASSES
 
