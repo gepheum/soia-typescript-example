@@ -2,10 +2,10 @@
 // More info about buckwheat: https://github.com/gepheum/buckwheat
 import { expect, near } from "buckwheat";
 import { describe, it } from "mocha";
-import { Timestamp } from "soia";
-import { User } from "../soiagen/user";
+import { Timestamp } from "skir-client";
+import { User } from "../skirout/user";
 
-describe("soia unit test example", () => {
+describe("skir unit test example", () => {
   const tarzan: User = User.create({
     userId: 123,
     name: "Tarzan",
@@ -36,9 +36,11 @@ describe("soia unit test example", () => {
         },
       ],
       subscriptionStatus: {
-        kind: "trial",
-        value: {
-          startTime: Timestamp.fromUnixMillis(1234),
+        union: {
+          kind: "trial",
+          value: {
+            startTime: Timestamp.fromUnixMillis(1234),
+          },
         },
       },
       // `userId` is not specified so it can be anything

@@ -1,4 +1,4 @@
-// Sends RPCs to a soia service from the browser or Node.js.
+// Sends RPCs to a skir service from the browser or Node.js.
 //
 // To run from the browser, run:
 //   npm run server
@@ -7,14 +7,14 @@
 //
 // To run from Node.js, run:
 //    npm run client-on-node
-import { ServiceClient } from "soia";
+import { ServiceClient } from "skir-client";
 import {
   AddUser,
   AddUserRequest,
   GetUser,
   GetUserRequest,
-} from "../soiagen/service";
-import { TARZAN, User } from "../soiagen/user";
+} from "../skirout/service";
+import { TARZAN, User } from "../skirout/user";
 
 const serviceClient = new ServiceClient("http://localhost:8787/myapi");
 

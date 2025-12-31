@@ -1,7 +1,8 @@
-srcDir: ./soia_src
+srcDir: ./skir-src
 
 generators:
-  - mod: soia-typescript-gen
+  - mod: skir-typescript-gen
+    outDir: ./skirout
     config:
       # Possible values: "" (CommonJS), ".js" (ES Modules), ".ts" (Deno)
       importPathExtension: ""

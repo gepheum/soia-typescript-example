@@ -1,4 +1,4 @@
-// Starts a soia service at http://localhost:8787/?myapi
+// Starts a skir service at http://localhost:8787/?myapi
 //
 // Run with:
 //   npm run server
@@ -6,7 +6,7 @@
 // Visit http://localhost:8787/ in your browser to send RPCs to the service.
 import express, { Request, Response } from "express";
 import path from "path";
-import { Service, installServiceOnExpressApp } from "soia";
+import { Service, installServiceOnExpressApp } from "skir-client";
 import {
   AddUser,
   AddUserRequest,
@@ -14,8 +14,8 @@ import {
   GetUser,
   GetUserRequest,
   GetUserResponse,
-} from "../soiagen/service";
-import { User } from "../soiagen/user";
+} from "../skirout/service";
+import { User } from "../skirout/user";
 
 const app = express();
 const port = 8787;

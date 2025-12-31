@@ -4,12 +4,12 @@
 //   npm run snippets
 
 import assert from "assert";
-import { parseTypeDescriptorFromJson, Timestamp } from "soia";
-import { TARZAN, User, UserHistory, UserRegistry } from "../soiagen/user";
+import { parseTypeDescriptorFromJson, Timestamp } from "skir-client";
+import { SubscriptionStatus, TARZAN, User, UserHistory, UserRegistry } from "../skirout/user";
 
 // FROZEN STRUCT CLASSES
 
-// For every struct S in the .soia file, soia generates a frozen (deeply
+// For every struct S in the .skir file, skir generates a frozen (deeply
 // immutable) class 'S'  and a mutable class 'S.Mutable'.
 
 // Construct a frozen User with User.create({...})
@@ -113,14 +113,14 @@ greet(lylaMut);
 
 // MAKING ENUM VALUES
 
-const johnStatus = User.SubscriptionStatus.FREE;
-const janeStatus = User.SubscriptionStatus.PREMIUM;
-const lylaStatus = User.SubscriptionStatus.create("PREMIUM");
-// ^ same as User.SubscriptionStatus.PREMIUM
-const jolyStatus = User.SubscriptionStatus.UNKNOWN;
+const johnStatus = SubscriptionStatus.FREE;
+const janeStatus = SubscriptionStatus.PREMIUM;
+const lylaStatus = SubscriptionStatus.create("PREMIUM");
+// ^ same as SubscriptionStatus.PREMIUM
+const jolyStatus = SubscriptionStatus.UNKNOWN;
 
-// Use create({kind: ..., value: ...}) for data variants.
-const roniStatus = User.SubscriptionStatus.create({
+// Use create({kind: ..., value: ...}) for wrapper variants.
+const roniStatus = SubscriptionStatus.create({
   kind: "trial",
   value: {
     startTime: Timestamp.fromUnixMillis(1234),
@@ -129,18 +129,19 @@ const roniStatus = User.SubscriptionStatus.create({
 
 // CONDITIONS ON ENUMS
 
-// Use e.kind === "CONSTANT_NAME" to check if the enum value is a constant.
-assert(johnStatus.kind === "FREE");
-assert(johnStatus.value === undefined);
+// Use 'union.kind' to check which variant the enum value holds.
+assert(johnStatus.union.kind === "FREE");
 
 // Use "?" for UNKNOWN.
-assert(jolyStatus.kind === "?");
+assert(jolyStatus.union.kind === "?");
 
-assert(roniStatus.kind === "trial");
-assert(roniStatus.value!.startTime.unixMillis === 1234);
+assert(roniStatus.union.kind === "trial");
+// If the enum holds a wrapper variant, you can access the wrapped value through
+// 'union.value'.
+assert(roniStatus.union.value.startTime.unixMillis === 1234);
 
-function getSubscriptionInfoText(status: User.SubscriptionStatus): string {
-  // Use the 'union' getter for typesafe switches on enums.
+function getSubscriptionInfoText(status: SubscriptionStatus): string {
+  // Pattern matching on enum variants
   switch (status.union.kind) {
     case "?":
       return "Unknown subscription status";
@@ -149,7 +150,8 @@ function getSubscriptionInfoText(status: User.SubscriptionStatus): string {
     case "PREMIUM":
       return "Premium user";
     case "trial":
-      // Here the compiler knows that the type of union.value is 'User.Trial'.
+      // Here the compiler knows that the type of union.value is
+      // SubscriptionStatus.Trial
       return "On trial since " + status.union.value.startTime;
   }
 }
@@ -170,13 +172,13 @@ console.log(serializer.toJsonCode(john, "readable"));
 // }
 
 // The dense JSON flavor is the flavor you should pick if you intend to
-// deserialize the value in the future. Soia allows fields to be renamed, and
+// deserialize the value in the future. Skir allows fields to be renamed, and
 // because fields names are not part of the dense JSON, renaming a field does
 // not prevent you from deserializing the value.
 // You should pick the readable flavor mostly for debugging purposes.
 
 // Serialize 'john' to binary format.
-console.log(serializer.toBytes(john));
+const johnBytes = serializer.toBytes(john);
 
 // The binary format is not human readable, but it is slightly more compact than
 // JSON, and serialization/deserialization can be a bit faster in languages like
@@ -225,15 +227,19 @@ assert(jack.pets === jade.pets);
 // KEYED ARRAYS
 
 const userRegistry = UserRegistry.create({
-  users: [john, jane, lylaMut],
+  users: [john, jane, lylaMut, evilJane],
 });
 
-// searchUsers() returns the user with the given key (specified in the .soia
+// searchUsers() returns the user with the given key (specified in the .skir
 // file). In this example, the key is the user id.
 // The first lookup runs in O(N) time, and the following lookups run in O(1)
 // time.
 assert(userRegistry.searchUsers(42) === john);
 assert(userRegistry.searchUsers(100) === undefined);
+
+// If multiple elements have the same key, the search method returns the last
+// one. Duplicates are allowed but generally discouraged.
+assert(userRegistry.searchUsers(43) === evilJane);
 
 // CONSTANTS
 
@@ -251,7 +257,7 @@ console.log(TARZAN);
 
 // REFLECTION
 
-// Reflection allows you to inspect a soia type at runtime.
+// Reflection allows you to inspect a skir type at runtime.
 
 const fieldNames: string[] = [];
 for (const field of User.serializer.typeDescriptor.fields) {

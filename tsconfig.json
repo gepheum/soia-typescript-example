@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "soiagen/**/*"],
+  "include": ["src/**/*", "skirout/**/*"],
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": true,

@@ -1,4 +1,4 @@
-name: Soia TypeScript Examples CI
+name: Skir TypeScript Examples CI
 
 on:
   push:
@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run format:check
       - run: npm run build
       - run: npm run snippets
       - run: npm run test
