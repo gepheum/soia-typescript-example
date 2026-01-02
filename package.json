@@ -12,7 +12,8 @@
   "scripts": {
     "codegen": "skir gen",
     "codegen:watch": "skir gen --watch",
-    "build": "npm run codegen && tsc",
+    "prebuild": "npm run codegen",
+    "build": "tsc",
     "bundle": "esbuild src/client.ts --bundle --outfile=static/bundle.js --platform=browser --format=iife",
     "server": "npm run build && npm run bundle && node dist/src/server.js",
     "client-on-node": "npm run build && node dist/src/client.js",
@@ -33,7 +34,7 @@
     "mocha": "^11.1.0",
     "prettier": "^3.2.4",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "skir": "^0.0.9",
+    "skir": "^1.0.0",
     "skir-typescript-gen": "^1.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
