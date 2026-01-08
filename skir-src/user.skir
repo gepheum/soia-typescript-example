@@ -1,3 +1,4 @@
+/// A user
 struct User {
   user_id: int32;
   name: string;

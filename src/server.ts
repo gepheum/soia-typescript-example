@@ -20,6 +20,17 @@ import { User } from "../skirout/user";
 const app = express();
 const port = 8787;
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "*");
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(express.static(path.join(__dirname, "../../static")));
 
 app.get("/", (req: Request, res: Response) => {
@@ -32,18 +43,12 @@ class MyService {
     // Add these parameters if you need to access the Express request/response
     // objects (e.g., for headers, cookies, etc.)
     reqMeta: Request,
-    resMeta: Response,
   ): Promise<AddUserResponse> {
     const userId = req.user.userId;
     if (userId === 0) {
       throw new Error("User ID cannot be 0");
     }
     this.users[req.user.userId] = req.user;
-    // Set a custom response header based on a request header.
-    resMeta.set(
-      "X-Bar",
-      (reqMeta.get("X-Foo") || "").toLocaleUpperCase("en-US"),
-    );
     return AddUserResponse.create({});
   }
 
