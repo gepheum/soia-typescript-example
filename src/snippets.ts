@@ -138,8 +138,7 @@ const roniStatus = SubscriptionStatus.create({
 // Use 'union.kind' to check which variant the enum value holds.
 assert(johnStatus.union.kind === "FREE");
 
-// Use "?" for UNKNOWN.
-assert(jolyStatus.union.kind === "?");
+assert(jolyStatus.union.kind === "UNKNOWN");
 
 assert(roniStatus.union.kind === "trial");
 // If the enum holds a wrapper variant, you can access the wrapped value through
@@ -149,7 +148,7 @@ assert(roniStatus.union.value.startTime.unixMillis === 1234);
 function getSubscriptionInfoText(status: SubscriptionStatus): string {
   // Pattern matching on enum variants
   switch (status.union.kind) {
-    case "?":
+    case "UNKNOWN":
       return "Unknown subscription status";
     case "FREE":
       return "Free user";

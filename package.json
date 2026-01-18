@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/express": "^5.0.1",
     "express": "^5.1.0",
-    "skir-client": "^1.0.4"
+    "skir-client": "^1.0.9"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
@@ -34,8 +34,8 @@
     "mocha": "^11.1.0",
     "prettier": "^3.2.4",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "skir": "^1.0.6",
-    "skir-typescript-gen": "^1.0.1",
+    "skir": "^1.0.11",
+    "skir-typescript-gen": "^1.0.4",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.3.3"

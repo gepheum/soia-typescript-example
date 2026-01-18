@@ -69,7 +69,9 @@ const myService = new MyService();
 installServiceOnExpressApp(
   app,
   "/myapi",
-  new Service()
+  new Service({
+    // Optional service configuration goes here
+  })
     .addMethod(AddUser, MyService.prototype.addUser.bind(myService))
     .addMethod(GetUser, MyService.prototype.getUser.bind(myService)),
   express.text,
