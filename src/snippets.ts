@@ -166,14 +166,30 @@ function getSubscriptionInfoText(status: SubscriptionStatus): string {
 const serializer = User.serializer;
 
 // Serialize 'john' to dense JSON.
-console.log(serializer.toJsonCode(john));
-// [42,"John Doe"]
+const johnDenseJson = serializer.toJson(john);
+
+// With dense JSON, structs are encoded as JSON arrays.
+assert(Array.isArray(johnDenseJson));
+
+// toJsonCode() returns a string containing the JSON code.
+// Equivalent to calling JSON.dumps() on toJson()'s result.
+const johnDenseJsonCode = serializer.toJsonCode(john);
+assert(johnDenseJsonCode.startsWith("["));
 
 // Serialize 'john' to readable JSON.
 console.log(serializer.toJsonCode(john, "readable"));
 // {
 //   "user_id": 42,
-//   "name": "John Doe"
+//   "name": "John Doe",
+//   "quote": "Coffee is just a socially acceptable form of rage.",
+//   "pets": [
+//     {
+//       "name": "Dumbo",
+//       "height_in_meters": 1,
+//       "picture": "🐘"
+//     }
+//   ],
+//   "subscription_status": "FREE"
 // }
 
 // The dense JSON flavor is the flavor you should pick if you intend to
@@ -192,7 +208,7 @@ const johnBytes = serializer.toBytes(john);
 
 // Use fromJson(), fromJsonCode() and fromBytes() to deserialize.
 
-const reserializedJohn = serializer.fromJsonCode(serializer.toJsonCode(john));
+const reserializedJohn = serializer.fromJsonCode(johnDenseJsonCode);
 assert(reserializedJohn.name === "John Doe");
 
 const reserializedJane = serializer.fromJsonCode(
@@ -200,10 +216,8 @@ const reserializedJane = serializer.fromJsonCode(
 );
 assert(reserializedJane.name === "Jane Doe");
 
-const reserializedLyla = serializer.fromBytes(
-  serializer.toBytes(lylaMut).toBuffer(),
-);
-assert(reserializedLyla.name === "Lyla Doe");
+assert(serializer.fromJson(johnDenseJson).name === "John Doe");
+assert(serializer.fromBytes(johnBytes.toBuffer()).name === "John Doe");
 
 // FROZEN ARRAYS AND COPIES
 
@@ -254,9 +268,9 @@ console.log(TARZAN);
 //   name: 'Tarzan',
 //   quote: 'AAAAaAaAaAyAAAAaAaAaAyAAAAaAaAaA',
 //   pets: [ User_Pet { name: 'Cheeta', heightInMeters: 1.67, picture: '🐒' } ],
-//   subscriptionStatus: User_SubscriptionStatus {
+//   subscriptionStatus: SubscriptionStatus {
 //     kind: 'trial',
-//     value: User_Trial { startTime: [Timestamp] }
+//     value: SubscriptionStatus_Trial { startTime: [Timestamp] }
 //   }
 // }
 

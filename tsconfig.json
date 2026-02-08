@@ -16,7 +16,6 @@
     "moduleResolution": "NodeNext",
     "noUncheckedIndexedAccess": true,
     "outDir": "./dist",
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "ES2020"
