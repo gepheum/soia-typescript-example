@@ -172,7 +172,7 @@ const johnDenseJson = serializer.toJson(john);
 assert(Array.isArray(johnDenseJson));
 
 // toJsonCode() returns a string containing the JSON code.
-// Equivalent to calling JSON.dumps() on toJson()'s result.
+// Equivalent to calling JSON.stringify() on toJson()'s result.
 const johnDenseJsonCode = serializer.toJsonCode(john);
 assert(johnDenseJsonCode.startsWith("["));
 
