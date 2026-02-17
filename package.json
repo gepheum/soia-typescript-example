@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/express": "^5.0.1",
     "express": "^5.1.0",
-    "skir-client": "^1.0.9"
+    "skir-client": "^1.0.10"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
