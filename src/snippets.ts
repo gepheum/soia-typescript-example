@@ -4,7 +4,14 @@
 //   npm run snippets
 
 import assert from "assert";
-import { parseTypeDescriptorFromJson, Timestamp } from "skir-client";
+import {
+  arraySerializer,
+  ByteString,
+  optionalSerializer,
+  parseTypeDescriptorFromJson,
+  primitiveSerializer,
+  Timestamp,
+} from "skir-client";
 import {
   SubscriptionStatus,
   TARZAN,
@@ -218,6 +225,42 @@ assert(reserializedJane.name === "Jane Doe");
 
 assert(serializer.fromJson(johnDenseJson).name === "John Doe");
 assert(serializer.fromBytes(johnBytes.toBuffer()).name === "John Doe");
+
+// PRIMITIVE SERIALIZERS
+
+assert(primitiveSerializer("bool").toJson(true) === 1);
+assert(primitiveSerializer("int32").toJson(3) === 3);
+assert(
+  primitiveSerializer("int64").toJson(BigInt("9223372036854775807")) ===
+    "9223372036854775807",
+);
+assert(
+  primitiveSerializer("hash64").toJson(BigInt("18446744073709551615")) ===
+    "18446744073709551615",
+);
+assert(
+  primitiveSerializer("timestamp").toJson(
+    Timestamp.fromUnixMillis(1743682787000),
+  ) === 1743682787000,
+);
+assert(primitiveSerializer("float32").toJson(3.14) === 3.14);
+assert(primitiveSerializer("float64").toJson(3.14) === 3.14);
+assert(primitiveSerializer("string").toJson("Foo") === "Foo");
+assert(
+  primitiveSerializer("bytes").toJson(
+    ByteString.sliceOf(new Uint8Array([1, 2, 3]).buffer),
+  ) === "AQID",
+);
+
+// COMPOSITE SERIALIZERS
+
+assert(
+  optionalSerializer(primitiveSerializer("string")).toJson("foo") === "foo",
+);
+assert(optionalSerializer(primitiveSerializer("string")).toJson(null) === null);
+
+console.log(arraySerializer(primitiveSerializer("bool")).toJson([true, false]));
+// [1, 0]
 
 // FROZEN ARRAYS AND COPIES
 
